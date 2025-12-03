@@ -1,3 +1,4 @@
+
 /*
 Variables:
 λ =promdedio de llegadas
@@ -6,7 +7,6 @@ C = numero de servidores
 a = intensidad de trafico 
 ρ = factor de utilizacion del sistema
 */
-
 import java.util.Scanner;
 
 public class LineasDeEspera {
@@ -59,43 +59,65 @@ public class LineasDeEspera {
     // μ = promedio de servicio
     public static void modeloMM1(int lambda, int mu) {
         if (lambda < mu) {
-            
-            double p= (double) lambda / mu; // factor de utilizacion del sistema
+
+            double p = (double) lambda / mu; // factor de utilizacion del sistema
             p = (int) (p * 100.0) / 100.0;
 
-            double Lq=(Math.pow(lambda,2))/(mu*(mu-lambda) ) ;// numero promedio de clientes en la cola
+            double Lq = (Math.pow(lambda, 2)) / (mu * (mu - lambda));// numero promedio de clientes en la cola
             Lq = (int) (Lq * 100.0) / 100.0;
 
-            double Wq= (double) Lq/lambda ; // tiempo promedio de espera en la cola
+            double Wq = (double) Lq / lambda; // tiempo promedio de espera en la cola
             Wq = (int) (Wq * 100.0) / 100.0;
 
-            double W= (double) Wq + (1/mu); // tiempo total en el sistema
+            double W = (double) Wq + ((double) 1 / mu); // tiempo total en el sistema
             W = (int) (W * 100.0) / 100.0;
 
-            double L=(double) lambda*W ;//numero promedio de clientes en el sistema
+            double L = (double) lambda * W;// numero promedio de clientes en el sistema
             L = (int) (L * 100.0) / 100.0;
-                    
 
             System.out.println("\nEl sistema es estable.");
-            System.out.println("Factor de utilizacion del sistema: "+ p);
-            System.out.println("Número promedio de clientes en la cola: "+ Lq);
-            System.out.println("Tiempo promedio de espera en la cola: "+ Wq +" horas o "+ (Wq*60)+" minutos.");
-            System.out.println("Tiempo total en el sistema: "+ W +" horas o "+ (W*60)+" minutos.");
-            System.out.println("Número promedio de clientes en el sistema: "+ L);
+            System.out.println("Factor de utilizacion del sistema: " + p);
+            System.out.println("Número promedio de clientes en la cola: " + Lq);
+            System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + (Wq * 60) + " minutos.");
+            System.out.println("Tiempo total en el sistema: " + W + " horas o " + (W * 60) + " minutos.");
+            System.out.println("Número promedio de clientes en el sistema: " + L);
         } else {
-            System.out.println("\nEl sistema no es estable, ya que el promedio de\nllegadas debe ser menor que el promedio de servicio.");
+            System.out.println(
+                    "\nEl sistema no es estable, ya que el promedio de\nllegadas debe ser menor que el promedio de servicio.");
         }
 
     }
 
     // Modelo M/M/C
-    public static void modeloMMC() {
+    // Modelo M/M/1
+    // λ = promedio de llegadas
+    // μ = promedio de servicio
+    // C = numero de servidores
+    public static void modeloMMC(int lambda, int mu, int c) {
+
+        double a = (double) lambda / mu;// intencidad de trafico
+        a = (int) (a * 100.0) / 100.0;
+
+        double p = (double) a / c; // factor de utilizacion del sistema
+        p = (int) (p * 100.0) / 100.0;
+
+        double P_o=0;
+
+        double P_espera =(double) ((Math.pow(a,c))/(factoria(c)*(1-p)))*P_o;
 
     }
 
     // Modelo M/M/1K
     public static void modeloMM1K() {
 
+    }
+
+    public static int factoria(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        } else {
+            return n * factoria(n - 1);
+        }
     }
 
 }
