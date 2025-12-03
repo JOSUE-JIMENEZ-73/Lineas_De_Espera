@@ -35,7 +35,14 @@ public class LineasDeEspera {
                     break;
                 }
                 case 2: {
-                    modeloMMC();
+                    System.out.println("\n===============Modelo M/M/C===============");
+                    System.out.println("Ingrese el promedio de llegadas: ");
+                    int promedioLlegadas = sc.nextInt();
+                    System.out.println("Ingrese el promedio de servicio: ");
+                    int promdedioServicio = sc.nextInt();
+                    System.out.println("Ingrese el número de servidores: ");
+                    int c = sc.nextInt();
+                    modeloMMC(promedioLlegadas, promdedioServicio, c);
                     break;
                 }
                 case 3: {
@@ -89,7 +96,6 @@ public class LineasDeEspera {
     }
 
     // Modelo M/M/C
-    // Modelo M/M/1
     // λ = promedio de llegadas
     // μ = promedio de servicio
     // C = numero de servidores
