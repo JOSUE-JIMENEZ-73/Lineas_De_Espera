@@ -15,7 +15,7 @@ public class LineasDeEspera {
         int opcion = 0;
         do {
             // Menú de opciones
-            System.out.println("\n===============MNEU===============");
+            System.out.println("\n===============MENU===============");
             System.out.println("Seleccione el modelo de línea de\nespera que desea calcular:");
             System.out.println("1. Modelo M/M/1");
             System.out.println("2. Modelo M/M/C");
@@ -89,11 +89,14 @@ public class LineasDeEspera {
             double L = (double) lambda * W;// numero promedio de clientes en el sistema
             L = (int) (L * 100.0) / 100.0;
 
+            double W_minutos = W * 60;
+            W_minutos = (int) (W_minutos * 100.0) / 100.0;
+
             System.out.println("\nEl sistema es estable.");
             System.out.println("Factor de utilizacion del sistema: " + p + "(" + (p * 100) + "%)");
             System.out.println("Número promedio de clientes en la cola: " + Lq);
             System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + (Wq * 60) + " minutos.");
-            System.out.println("Tiempo total en el sistema: " + W + " horas o " + (W * 60) + " minutos.");
+            System.out.println("Tiempo total en el sistema: " + W + " horas o " + W_minutos + " minutos.");
             System.out.println("Número promedio de clientes en el sistema: " + L);
         } else {
             System.out.println(
@@ -163,7 +166,7 @@ public class LineasDeEspera {
 
         System.out.println("\nIntencidad del sistema: " + a);
         System.out.println("Factor de utilizacion del sistema: " + P + "(" + P_porcentaje + "%)");
-        System.out.println("Probabilidad de que no haya clientes en el sistema: " + P_o + "(" + P_o_porcentaje + "%)");
+        System.out.println("Probabilidad de que el sistema este vacio: " + P_o + "(" + P_o_porcentaje + "%)");
         System.out.println(
                 "Probabilidad de que un cliente espere en la cola: " + P_espera + "(" + P_espera_porcentaje + "%)");
         System.out.println("Número promedio de clientes en la cola: " + Lq);
@@ -178,8 +181,52 @@ public class LineasDeEspera {
     // k= capacidad maxima del sistema
     public static void modeloMM1K(int lambda, int mu, int K) {
 
-        double p= (double) lambda / mu; // factor de utilizacion del sistema
+        double p = (double) lambda / mu; // factor de utilizacion del sistema p
         p = (int) (p * 100.0) / 100.0;
+
+        double P_o = (double) (1 - p) / (1 - Math.pow(p, K + 1)); // probabilidad de que este vacio el sistema P_o
+        P_o = (int) (P_o * 1000.0) / 1000.0;
+
+        double P_k = (double) (Math.pow(p, K)) * (P_o); // probabilidad de que el sistema este lleno P_k
+        P_k = (int) (P_k * 1000.0) / 1000.0;
+
+        double lambda_e = lambda * (1 - P_k); // tasa efectiva de llegadas lambda_e
+        lambda_e = (int) (lambda_e * 100.0) / 100.0;
+
+        double L = (double) (p * (1 - (K + 1) * Math.pow(p, K) + (K * Math.pow(p, K + 1))))
+                / ((1 - p) * (1 - Math.pow(p, K + 1))); // numero promedio de clientes en el sistema L
+        L = (int) (L * 100.0) / 100.0;
+
+        double W = (double) L / lambda_e; // tiempo promedio en el sistema W
+        W = (int) (W * 1000.0) / 1000.0;
+
+        // minutos y porcentajes
+        double P_porcentaje = p * 100;
+        P_porcentaje = (int) (P_porcentaje * 100.0) / 100.0;
+
+        double P_o_porcentaje = P_o * 100;
+        P_o_porcentaje = (int) (P_o_porcentaje * 100.0) / 100.0;
+
+        double P_k_porcentaje = P_k * 100;
+        P_k_porcentaje = (int) (P_k_porcentaje * 100.0) / 100.0;
+
+        double W_minutos = W * 60;
+        W_minutos = (int) (W_minutos * 1000.0) / 1000.0;
+
+        System.out.println("\nFactor de utilizacion del sistema: " + p + "(" + P_porcentaje + "%)");
+        System.out.println("Probabilidad de que el sistema este vacio: " + P_o + "(" + P_o_porcentaje + "%)");
+        System.out.println("Probabilidad de que el sistema este lleno: " + P_k + "(" + P_k_porcentaje + "%)");
+        System.out.println("Tasa efectiva de llegadas: " + lambda_e);
+        System.out.println("Número promedio de clientes en el sistema: " + L);
+        System.out.println("Tiempo promedio en el sistema: " + W + " horas o " + W_minutos + " minutos.");
+
+        System.out.println("=================================================");
+        System.out.println(p);
+        System.out.println(P_o);
+        System.out.println(P_k);
+        System.out.println(lambda_e);
+        System.out.println(L);
+        System.out.println(W);
 
     }
 
