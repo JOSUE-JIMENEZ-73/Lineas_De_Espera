@@ -1,8 +1,8 @@
 
 /*
 Variables:
-λ =promdedio de llegadas
-μ =promedio de servicio
+λ = promdedio de llegadas
+μ = promedio de servicio
 C = numero de servidores
 a = intensidad de trafico 
 ρ = factor de utilizacion del sistema
@@ -30,8 +30,8 @@ public class LineasDeEspera {
                     System.out.println("Ingrese el promedio de llegadas: ");// lambda
                     int promedioLlegadas = sc.nextInt();
                     System.out.println("Ingrese el promedio de servicio: ");// mu
-                    int promdedioServicio = sc.nextInt();
-                    modeloMM1(promedioLlegadas, promdedioServicio);
+                    int promedioServicio  = sc.nextInt();
+                    modeloMM1(promedioLlegadas, promedioServicio);
                     break;
                 }
                 case 2: {
@@ -111,7 +111,7 @@ public class LineasDeEspera {
     // C = numero de servidores
     public static void modeloMMC(int lambda, int mu, int c) {
 
-        double a = (double) lambda / mu;// intencidad de trafico a
+        double a = (double) lambda / mu;// intensidad de trafico a
         a = (int) (a * 100.0) / 100.0;
         System.out.println(a);
 
@@ -123,11 +123,11 @@ public class LineasDeEspera {
         // Sumatoria
         double sumatoria = 0.0;
         for (int i = 0; i < c; i++) {
-            sumatoria += (double) (Math.pow(a, i)) / factoria(i);
+            sumatoria += (double) (Math.pow(a, i)) / factorial(i);
         }
         sumatoria = (int) (sumatoria * 1000.0) / 1000.0;
 
-        double suma = (double) Math.pow(a, c) / factoria(c);// segunda parte de la formula
+        double suma = (double) Math.pow(a, c) / factorial(c);// segunda parte de la formula
         suma = (double) suma * (1 / (1 - P));// se multiplica por la tercera parte de la formula
         suma = (int) (suma * 1000.0) / 1000.0;
 
@@ -136,7 +136,7 @@ public class LineasDeEspera {
         System.out.println(P_o);
 
         // probabilidad de que un cliente espere en la cola P_espera
-        double P_espera = (double) ((Math.pow(a, c)) / (factoria(c) * (1 - P))) * P_o;
+        double P_espera = (double) ((Math.pow(a, c)) / (factorial(c) * (1 - P))) * P_o;
         P_espera = (int) (P_espera * 1000.0) / 1000.0;
 
         double Lq = (double) (P_espera * P) / (1 - P);// numero promedio de clientes en la cola Lq
@@ -222,11 +222,11 @@ public class LineasDeEspera {
     }
 
     // Metodo para calcular la factorial
-    public static int factoria(int n) {
+    public static int factorial(int n) {
         if (n == 0 || n == 1) {
             return 1;
         } else {
-            return n * factoria(n - 1);
+            return n * factorial(n - 1);
         }
     }
 
