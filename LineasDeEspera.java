@@ -219,15 +219,6 @@ public class LineasDeEspera {
         System.out.println("Tasa efectiva de llegadas: " + lambda_e);
         System.out.println("Número promedio de clientes en el sistema: " + L);
         System.out.println("Tiempo promedio en el sistema: " + W + " horas o " + W_minutos + " minutos.");
-
-        System.out.println("=================================================");
-        System.out.println(p);
-        System.out.println(P_o);
-        System.out.println(P_k);
-        System.out.println(lambda_e);
-        System.out.println(L);
-        System.out.println(W);
-
     }
 
     // Metodo para calcular la factorial
