@@ -46,7 +46,14 @@ public class LineasDeEspera {
                     break;
                 }
                 case 3: {
-                    modeloMM1K();
+                    System.out.println("\n===============Modelo M/M/1/K===============");
+                    System.out.println("Ingrese el promedio de llegadas: ");
+                    int promedioLlegadas = sc.nextInt();
+                    System.out.println("Ingrese el promedio de servicio: ");
+                    int promdedioServicio = sc.nextInt();
+                    System.out.println("Ingrese la capacidad máxima del sistema (K): ");
+                    int K = sc.nextInt();
+                    modeloMM1K(promedioLlegadas, promdedioServicio, K);
                     break;
                 }
                 case 4: {
@@ -83,7 +90,7 @@ public class LineasDeEspera {
             L = (int) (L * 100.0) / 100.0;
 
             System.out.println("\nEl sistema es estable.");
-            System.out.println("Factor de utilizacion del sistema: " + p + "("+ (p * 100) + "%)");
+            System.out.println("Factor de utilizacion del sistema: " + p + "(" + (p * 100) + "%)");
             System.out.println("Número promedio de clientes en la cola: " + Lq);
             System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + (Wq * 60) + " minutos.");
             System.out.println("Tiempo total en el sistema: " + W + " horas o " + (W * 60) + " minutos.");
@@ -138,7 +145,7 @@ public class LineasDeEspera {
         double W = (double) Wq + ((double) 1 / mu); // tiempo total en el sistema W
         W = (int) (W * 1000.0) / 1000.0;
 
-        //minutos y porcentajes
+        // minutos y porcentajes
         double P_porcentaje = P * 100;
         P_porcentaje = (int) (P_porcentaje * 100.0) / 100.0;
 
@@ -155,9 +162,10 @@ public class LineasDeEspera {
         W_minutos = (int) (W_minutos * 1000.0) / 1000.0;
 
         System.out.println("\nIntencidad del sistema: " + a);
-        System.out.println("Factor de utilizacion del sistema: " + P + "("+ P_porcentaje + "%)"); 
-        System.out.println("Probabilidad de que no haya clientes en el sistema: " + P_o + "("+ P_o_porcentaje + "%)");
-        System.out.println("Probabilidad de que un cliente espere en la cola: " + P_espera + "("+ P_espera_porcentaje + "%)");
+        System.out.println("Factor de utilizacion del sistema: " + P + "(" + P_porcentaje + "%)");
+        System.out.println("Probabilidad de que no haya clientes en el sistema: " + P_o + "(" + P_o_porcentaje + "%)");
+        System.out.println(
+                "Probabilidad de que un cliente espere en la cola: " + P_espera + "(" + P_espera_porcentaje + "%)");
         System.out.println("Número promedio de clientes en la cola: " + Lq);
         System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + Wq_minutos + " minutos.");
         System.out.println("Tiempo total en el sistema: " + W + " horas o " + (W_minutos) + " minutos.");
@@ -165,7 +173,13 @@ public class LineasDeEspera {
     }
 
     // Modelo M/M/1K
-    public static void modeloMM1K() {
+    // λ = promedio de llegadas
+    // μ = promedio de servicio
+    // k= capacidad maxima del sistema
+    public static void modeloMM1K(int lambda, int mu, int K) {
+
+        double p= (double) lambda / mu; // factor de utilizacion del sistema
+        p = (int) (p * 100.0) / 100.0;
 
     }
 
