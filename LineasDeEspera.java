@@ -103,9 +103,11 @@ public class LineasDeEspera {
 
         double a = (double) lambda / mu;// intencidad de trafico a
         a = (int) (a * 100.0) / 100.0;
+        System.out.println(a);
 
         double P = (double) a / c; // factor de utilizacion del sistema P
         P = (int) (P * 100.0) / 100.0;
+        System.out.println(P);
 
         // Calculo de P_o
         // Sumatoria
@@ -113,14 +115,15 @@ public class LineasDeEspera {
         for (int i = 0; i < c; i++) {
             sumatoria += (double) (Math.pow(a, i)) / factoria(i);
         }
-        sumatoria = (int) (sumatoria * 100.0) / 100.0;
+        sumatoria = (int) (sumatoria * 1000.0) / 1000.0;
 
         double suma = (double) Math.pow(a, c) / factoria(c);// segunda parte de la formula
         suma = (double) suma * (1 / (1 - P));// se multiplica por la tercera parte de la formula
-        suma = (int) (suma * 100.0) / 100.0;
+        suma = (int) (suma * 1000.0) / 1000.0;
 
         double P_o = (double) 1 / (sumatoria + suma);// probabilidad de que no haya clientes en el sistema P_o
-        P_o = (int) (P_o * 10000.0) / 10000.0;
+        P_o = (int) (P_o * 1000.0) / 1000.0;
+        System.out.println(P_o);
 
         // probabilidad de que un cliente espere en la cola P_espera
         double P_espera = (double) ((Math.pow(a, c)) / (factoria(c) * (1 - P))) * P_o;
@@ -135,16 +138,28 @@ public class LineasDeEspera {
         double W = (double) Wq + ((double) 1 / mu); // tiempo total en el sistema W
         W = (int) (W * 1000.0) / 1000.0;
 
-        
+        //minutos y porcentajes
+        double P_porcentaje = P * 100;
+        P_porcentaje = (int) (P_porcentaje * 100.0) / 100.0;
+
+        double P_o_porcentaje = P_o * 100;
+        P_o_porcentaje = (int) (P_o_porcentaje * 100.0) / 100.0;
+
+        double P_espera_porcentaje = P_espera * 100;
+        P_espera_porcentaje = (int) (P_espera_porcentaje * 100.0) / 100.0;
+
+        double Wq_minutos = Wq * 60;
+        Wq_minutos = (int) (Wq_minutos * 1000.0) / 1000.0;
+
         double W_minutos = W * 60;
         W_minutos = (int) (W_minutos * 1000.0) / 1000.0;
 
         System.out.println("\nIntencidad del sistema: " + a);
-        System.out.println("Factor de utilizacion del sistema: " + P + "("+ (P * 100) + "%)");
-        System.out.println("Probabilidad de que no haya clientes en el sistema: " + P_o + "("+ (P_o * 100) + "%)");
-        System.out.println("Probabilidad de que un cliente espere en la cola: " + P_espera + "("+ (P_espera * 100) + "%)");
+        System.out.println("Factor de utilizacion del sistema: " + P + "("+ P_porcentaje + "%)"); 
+        System.out.println("Probabilidad de que no haya clientes en el sistema: " + P_o + "("+ P_o_porcentaje + "%)");
+        System.out.println("Probabilidad de que un cliente espere en la cola: " + P_espera + "("+ P_espera_porcentaje + "%)");
         System.out.println("Número promedio de clientes en la cola: " + Lq);
-        System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + (Wq * 60) + " minutos.");
+        System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + Wq_minutos + " minutos.");
         System.out.println("Tiempo total en el sistema: " + W + " horas o " + (W_minutos) + " minutos.");
 
     }
