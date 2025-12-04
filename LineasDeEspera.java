@@ -230,6 +230,7 @@ public class LineasDeEspera {
 
     }
 
+    // Metodo para calcular la factorial
     public static int factoria(int n) {
         if (n == 0 || n == 1) {
             return 1;
