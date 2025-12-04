@@ -101,15 +101,40 @@ public class LineasDeEspera {
     // C = numero de servidores
     public static void modeloMMC(int lambda, int mu, int c) {
 
-        double a = (double) lambda / mu;// intencidad de trafico
+        double a = (double) lambda / mu;// intencidad de trafico a
         a = (int) (a * 100.0) / 100.0;
 
-        double p = (double) a / c; // factor de utilizacion del sistema
-        p = (int) (p * 100.0) / 100.0;
+        double P = (double) a / c; // factor de utilizacion del sistema P
+        P = (int) (P * 100.0) / 100.0;
 
-        double P_o=0;
+        // Calculo de P_o
+        // Sumatoria 
+        double sumatoria = 0.0;
+        for (int i = 0; i < c; i++) {
+            sumatoria += (double) (Math.pow(a, i)) / factoria(i);
+        }
+        sumatoria = (int) (sumatoria * 100.0) / 100.0;
 
-        double P_espera =(double) ((Math.pow(a,c))/(factoria(c)*(1-p)))*P_o;
+        double P_espera = (double) ((Math.pow(a, c)) / (factoria(c) * (1 - P)));// *P_o;
+        P_espera = (int) (P_espera * 100.0) / 100.0;
+
+        double Lq = (double) (P_espera * P) / (1 - P);// numero promedio de clientes en la cola Lq
+        Lq = (int) (Lq * 100.0) / 100.0;
+
+        double Wq = (double) Lq / lambda; // tiempo promedio esperado antes de ser atendico Wq
+        Wq = (int) (Wq * 100.0) / 100.0;
+
+        double W = (double) Wq + ((double) 1 / mu); // tiempo total en el sistema W
+        W = (int) (W * 100.0) / 100.0;
+
+        System.out.println("\nIntencidad del sistema: " + a);
+        System.out.println("Factor de utilizacion del sistema: " + P);
+        // System.out.println("Probabilidad de que no haya clientes en el sistema: " +
+        // P_o);
+        System.out.println("Probabilidad de que un cliente espere en la cola: " + P_espera);
+        System.out.println("Número promedio de clientes en la cola: " + Lq);
+        System.out.println("Tiempo promedio de espera en la cola: " + Wq + " horas o " + (Wq * 60) + " minutos.");
+        System.out.println("Tiempo total en el sistema: " + W + " horas o " + (W * 60) + " minutos.");
 
     }
 
